@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+.idea
+/scripts/cdclambda/node_modules/
+/scripts/cdclambda/node_modules/*
+# CDK asset staging directory
+.cdk.staging
+!/connectors/download_connectors.sh
+cdk.out
+/connectors/*
