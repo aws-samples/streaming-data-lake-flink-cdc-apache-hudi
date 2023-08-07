@@ -86,7 +86,7 @@ export class RdsCdcFlinkHudiStack extends cdk.Stack {
 
     });
 
-    //security group for MSK access
+    //security group for RDS
     const rdsSG = new ec2.SecurityGroup(this, 'rdsSG', {
       vpc: vpc,
       allowAllOutbound: true,
@@ -95,7 +95,7 @@ export class RdsCdcFlinkHudiStack extends cdk.Stack {
 
     rdsSG.connections.allowInternally(ec2.Port.allTraffic(), 'Allow all traffic between hosts having the same security group');
 
-    //security group for MSK access
+    //security group for EC2
     const ec2SG = new ec2.SecurityGroup(this, 'ec2SG', {
       vpc: vpc,
       allowAllOutbound: true,
@@ -109,8 +109,6 @@ export class RdsCdcFlinkHudiStack extends cdk.Stack {
     rdsSG.connections.allowInternally(ec2.Port.allTraffic(), 'Allow all traffic between hosts having the same security group');
 
     ec2SG.connections.allowInternally(ec2.Port.allTraffic(), 'Allow all traffic between hosts having the same security group');
-
-    ec2SG.addIngressRule(ec2.Peer.ipv4('18.202.216.48/29'),ec2.Port.tcp(22));
 
     const glueEndpoint = new ec2.InterfaceVpcEndpoint(this, 'glue endpoint', {
       vpc,
