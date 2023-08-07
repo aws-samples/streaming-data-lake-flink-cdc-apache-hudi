@@ -3,7 +3,7 @@
     {
       "text": "%md\n# Build a Modern Streaming Data Lake with Flink CDC and Apache Hudi\n In this notebook, we will be showing how by using the Apache Flink CDC Connectors, we are able to consume data directly from databases without any need for streaming storage and managing cdc connectors. We are going to be using the Postgres CDC connector which will read database snapshot first and then continues to read binlogs with exactly-once processing.\n \n This is because the Flink CDC Connectors comes integrated with Debezium, leveraging all the benefits from Apache Flink's fault tolerance by using checkpoints. \n \n Lastly, as we want to build a transactional data lake from our CDC, we will be using Apache Hudi to do fast inserts/upserts into our Data Lake using Merge on Read tables.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -36,17 +36,17 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677252_1310409836",
+      "jobName": "paragraph_1691416401190_769969703",
       "id": "paragraph_1685956209940_418315446",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
       "focus": true,
-      "$$hashKey": "object:26571"
+      "$$hashKey": "object:276"
     },
     {
       "text": "%md\n## Notebook Configuration",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -79,16 +79,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677253_2002605062",
+      "jobName": "paragraph_1691416401190_984643496",
       "id": "paragraph_1685956857884_887610398",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26572"
+      "$$hashKey": "object:277"
     },
     {
       "text": "%md\n### Enable Checkpoint\nIn order for Apache Hudi to commit the datasets, Flink's checkpoints needs to be enabled. We will enable checkpoint and be triggering with a one minute interval.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -121,16 +121,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677253_434728591",
+      "jobName": "paragraph_1691416401190_316561885",
       "id": "paragraph_1685956390494_721405943",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26573"
+      "$$hashKey": "object:278"
     },
     {
       "text": "%flink\n\nsenv.enableCheckpointing(9000);\nstenv.getConfig().getConfiguration().setString(\"execution.checkpointing.interval\", \"1min\");\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -162,16 +162,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677253_520678670",
+      "jobName": "paragraph_1691416401190_1301291635",
       "id": "paragraph_1685519995282_1786571732",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26574"
+      "$$hashKey": "object:279"
     },
     {
       "text": "%md\n### Increase tolerable failed checkpoints\nDuring scanning snapshot of database tables, since there is no recoverable position, we can’t perform checkpoints. In order to not perform checkpoints, Postgres CDC source will keep the checkpoint waiting to timeout. \n\nThe timeout checkpoint will be recognized as failed checkpoint, by default, this will trigger a failover for the Flink job. \n\nTo avoid this, we increase the configuration for tolerable failed checkpoints",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -204,16 +204,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677253_508231539",
+      "jobName": "paragraph_1691416401190_1472045562",
       "id": "paragraph_1685956824717_1880524044",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26575"
+      "$$hashKey": "object:280"
     },
     {
       "text": "%flink\nstenv.getConfig().getConfiguration().setString(\"execution.checkpointing.tolerable-failed-checkpoints\", \"1000\");",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -240,16 +240,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677253_1336506417",
+      "jobName": "paragraph_1691416401190_24494339",
       "id": "paragraph_1685956503443_320966641",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26576"
+      "$$hashKey": "object:281"
     },
     {
       "text": "%md\n## Apache Hudi\nTo demonstrate the capabilities of Apache Hudi, we will first create an example Hudi Table.\n- Please update the path with the S3 bucket that was created in Cloudformation template (You can find it in the outputs of the CF template).\n\nWe will be working with the Merge on Read Table of Apache Hudi. This will avoid compacting the data with every commit, and append the modifications using Logs. The Flink Job will asyncronously compact the Logs and Parquet Files depending on our configuration. We have set that the compaction to happen every 2 delta commits.\n\nNotice the definition of the table, in which we specify the uuid to be the Primary Key. This means that if we are doing upserts, Hudi will update the rows that have the same uuid.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -282,16 +282,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677254_1870914232",
+      "jobName": "paragraph_1691416401191_97092689",
       "id": "paragraph_1685956840325_902281436",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26577"
+      "$$hashKey": "object:282"
     },
     {
       "text": "%flink.ssql \n\nDROP TABLE IF EXISTS t1;\n\nCREATE TABLE t1 (\n        uuid VARCHAR(20) PRIMARY KEY NOT ENFORCED, -- Primary key used for upserts\n        name VARCHAR(10),\n        age INT,\n        ts TIMESTAMP(3)\n    ) \n    WITH (\n    'connector' = 'hudi',\n    'compaction.delta_seconds'='120',\n    'compaction.delta_commits'='2',\n    'compaction.trigger.strategy'='num_or_time',\n    'hoodie.embed.timeline.server' = 'false', -- Hudi v.0.11.0 and above try to run a runtime server on Flink Task managers. This does not  work with Kinesis Analytics and must be turned off.\n    'path' = 's3a://<S3DataLakeBucketName>/hudi/t1/', -- Path to your S3 bucket <Update with your S3 Bucket Name>\n    'table.type' = 'MERGE_ON_READ', --  MERGE_ON_READ table or, by default is COPY_ON_WRITE\n    'read.tasks' = '1',\n    'write.tasks' = '1',\n    'compaction.tasks' = '1'\n    );\n    ",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -323,16 +323,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677254_1197119293",
+      "jobName": "paragraph_1691416401191_1884065137",
       "id": "paragraph_1685520030078_623912620",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26578"
+      "$$hashKey": "object:283"
     },
     {
       "text": "%md\n### Insert records into the Hudi Table\nWe will be adding records using a Flink Batch Job",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -365,16 +365,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677254_232599119",
+      "jobName": "paragraph_1691416401191_9288421",
       "id": "paragraph_1685957276831_220473461",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26579"
+      "$$hashKey": "object:284"
     },
     {
       "text": "%flink.ssql(type=update)\n\nINSERT INTO t1 VALUES\n  ('id1','Danny',23,TIMESTAMP '1970-01-01 00:00:01'),\n  ('id2','Stephen',33,TIMESTAMP '1970-01-01 00:00:02'),\n  ('id3','Julian',53,TIMESTAMP '1970-01-01 00:00:03'),\n  ('id4','Fabian',31,TIMESTAMP '1970-01-01 00:00:04'),\n  ('id5','Sophia',18,TIMESTAMP '1970-01-01 00:00:05'),\n  ('id6','Emma',20,TIMESTAMP '1970-01-01 00:00:06'),\n  ('id7','Bob',44,TIMESTAMP '1970-01-01 00:00:07'),\n  ('id8','Han',56,TIMESTAMP '1970-01-01 00:00:08');",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "latest_checkpoint_path": "s3://3db4bd0e0168751d35dc925c1fa9414b79d097b8/070d9668c824344619a2c63c98843e8a-624189552015-1690737806378/checkpoints/38305740abbf69846f36ac1642806d85/chk-1",
@@ -411,16 +411,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_256023939",
+      "jobName": "paragraph_1691416401191_523659240",
       "id": "paragraph_1685521017081_1166228763",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26580"
+      "$$hashKey": "object:285"
     },
     {
       "text": "%md\n### Query Apache Hudi Tables\nWe can now run SQL Queries to our Hudi Table. By default the query type will be Snapshot query, in which it merges the Log files and parquet files that have not been compacted yet.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -453,16 +453,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1294547161",
+      "jobName": "paragraph_1691416401191_1776131281",
       "id": "paragraph_1685957408595_566465742",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26581"
+      "$$hashKey": "object:286"
     },
     {
       "text": "%flink.ssql(type=update)\n\nselect * from t1;\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -525,16 +525,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_316710521",
+      "jobName": "paragraph_1691416401191_1956125915",
       "id": "paragraph_1685520987488_304627602",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26582"
+      "$$hashKey": "object:287"
     },
     {
       "text": "%md \n### Upsert Hudi Table\nLets perform an usert, in which we update the name,age and timestamp of the uuid = 'id1'",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -567,16 +567,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1643407170",
+      "jobName": "paragraph_1691416401191_877178176",
       "id": "paragraph_1685957488246_655978603",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26583"
+      "$$hashKey": "object:288"
     },
     {
       "text": "%flink.ssql(type=update)\n\ninsert into t1 values  ('id1','Francisco Morillo',29,TIMESTAMP '2023-06-15 12:00:00');",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "latest_checkpoint_path": "s3://3db4bd0e0168751d35dc925c1fa9414b79d097b8/070d9668c824344619a2c63c98843e8a-624189552015-1690737806378/checkpoints/c35820313e47471b9782bf5c2e57989f/chk-1",
@@ -613,16 +613,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_394143258",
+      "jobName": "paragraph_1691416401191_1390853027",
       "id": "paragraph_1685521127934_1476547359",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26584"
+      "$$hashKey": "object:289"
     },
     {
       "text": "%md\nLets query again the same table using a filter to see the update",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -655,16 +655,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1488673139",
+      "jobName": "paragraph_1691416401191_1659562085",
       "id": "paragraph_1685957623086_1814710809",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26585"
+      "$$hashKey": "object:290"
     },
     {
       "text": "%flink.ssql(type=update)\n\nselect * from t1 where uuid = 'id1';",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -727,16 +727,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_831224955",
+      "jobName": "paragraph_1691416401191_2135236705",
       "id": "paragraph_1685521179308_1173505657",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26586"
+      "$$hashKey": "object:291"
     },
     {
       "text": "%md\nAs we can see, the row has been updated.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -769,16 +769,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1781091518",
+      "jobName": "paragraph_1691416401191_793914792",
       "id": "paragraph_1685957701891_1614735875",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26587"
+      "$$hashKey": "object:292"
     },
     {
       "text": "%md\n## Sports Tickets Database\nAs part of this example, we deployed an RDS PostgreSQL Database with sample data related to sport tickets sales. Using a Python PostgreSQL Connector we will preview the data, and later on we will use the connector in order to generate some CDC to our database. Please update the host with the RDS Endpoint found in the CloudFormation outputs",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -811,16 +811,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1940299635",
+      "jobName": "paragraph_1691416401191_475789835",
       "id": "paragraph_1687514097715_125304198",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26588"
+      "$$hashKey": "object:293"
     },
     {
       "text": "%flink.ipyflink\n\n%pip install psycopg2-binary\n\nimport psycopg2\n\nconn = psycopg2.connect(\n    host=\"<RDSInstanceEndpoint>\",\n    database=\"sportstickets\",\n    user=\"adminuser\",\n    password=\"admin123\")",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -843,16 +843,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_896789977",
+      "jobName": "paragraph_1691416401193_228454310",
       "id": "paragraph_1687514210956_180351445",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26589"
+      "$$hashKey": "object:294"
     },
     {
       "text": "%md\n\nLets preview the data\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -885,16 +885,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_2113865035",
+      "jobName": "paragraph_1691416401199_1443489504",
       "id": "paragraph_1687518587736_763321553",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26590"
+      "$$hashKey": "object:295"
     },
     {
-      "text": "%flink.ipyflink\n\ncur = conn.cursor()\n\ncur.execute(\"select * from dms_sample.person order by id desc limit 2 \")\nperson_records = cur.fetchall()\nprint(\"Print each row and it's columns values\")\nfor row in person_records:\n    print(\"Id = \", row[0], )\n    print(\"Full Name = \", row[1])\n    print(\"Last Name  = \", row[2])\n    print(\"First Name  = \", row[3], \"\\n\")\ncur.close()\n",
+      "text": "%flink.ipyflink\n\ncur = conn.cursor()\n\ncur.execute(\"select * from dms_sample.person order by id desc limit 2 \")\nperson_records = cur.fetchall()\nprint(\"Print each row and it's columns values\")\nfor row in person_records:\n    print(\"Id = \", row[0], )\n    print(\"Full Name = \", row[1])\n    print(\"Last Name  = \", row[2])\n    print(\"First Name  = \", row[3], \"\\n\")\ncur.close()\nconn.close()\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:44+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -925,16 +925,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_866110850",
+      "jobName": "paragraph_1691416401200_417888808",
       "id": "paragraph_1687514536187_361584814",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26591"
+      "$$hashKey": "object:296"
     },
     {
       "text": "%md\n\nWe can now query insert and update tables from our PostgreSQL Database. Let's see how we can now directly interact with our database with a Flink Application using Flink CDC Connectors",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -966,16 +966,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_191063715",
+      "jobName": "paragraph_1691416401200_1288152777",
       "id": "paragraph_1687514786554_64948496",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26592"
+      "$$hashKey": "object:297"
     },
     {
       "text": "%md\n## Flink CDC\nWe will now configure our Flink CDC Sources. As mentioned earlier, we will be using the Flink CDC Connector to consume data from an RDS PostgreSQL database. ",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1008,16 +1008,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1538374240",
+      "jobName": "paragraph_1691416401200_493552255",
       "id": "paragraph_1685959738151_1353281875",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26593"
+      "$$hashKey": "object:298"
     },
     {
       "text": "%md\n### Create Person Table\nWhen defining the table, we are storing in the Glue Data Catalog the metadata and configuration for building a source for our Apache Flink applications.\n- Please update the hostname with the RDS endpoint that you can find in the Cloudformation Outputs",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1050,16 +1050,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1525017362",
+      "jobName": "paragraph_1691416401200_1279998452",
       "id": "paragraph_1685959997228_1896695924",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26594"
+      "$$hashKey": "object:299"
     },
     {
       "text": "%flink.ssql\n\nDROP TABLE IF exists person;\n\nCREATE TABLE person (\n  id double,\n  full_name STRING,\n  last_name STRING,\n  first_name STRING\n) WITH (\n  'connector' = 'postgres-cdc',\n  'hostname' = '<RDSInstanceEndpoint>',\n  'port' = '5432',\n  'username' = 'adminuser',\n  'password' = 'admin123',\n  'database-name' = 'sportstickets',\n  'schema-name' = 'dms_sample',\n  'table-name' = 'person', -- Table from which we will be consuming the data. \n  'decoding.plugin.name' = 'pgoutput',\n  'slot.name' = 'stream1' -- Replication slot to be used for consuming the data\n);\n\n\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1091,16 +1091,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677257_1647830928",
+      "jobName": "paragraph_1691416401200_418803431",
       "id": "paragraph_1685462483499_1793343716",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26595"
+      "$$hashKey": "object:300"
     },
     {
       "text": "%md\n### Query Person Table\nThis query will first do a snapshot and then switch to the binlogs. \n\nAfter seeing data in the console, please stop the Flink Job, as the table has over 5M records and will continue to query as it will be waiting for new data be ingested/modified in the database",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1137,16 +1137,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677258_2124829210",
+      "jobName": "paragraph_1691416401200_1555991139",
       "id": "paragraph_1685960011044_1415799294",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26596"
+      "$$hashKey": "object:301"
     },
     {
       "text": "%flink.ssql(type=update)\n-- read snapshot and binlogs from person table\nSELECT * FROM person;",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1237,16 +1237,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677258_1006561128",
+      "jobName": "paragraph_1691416401200_1646973028",
       "id": "paragraph_1685462723469_914700049",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26597"
+      "$$hashKey": "object:302"
     },
     {
       "text": "%md\nAs we can see we are now able to consume directly from our database without the need for using separate CDC Connectors and streaming storage.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1279,16 +1279,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_2139287830",
+      "jobName": "paragraph_1691416401205_826925624",
       "id": "paragraph_1685960160756_10182497",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26598"
+      "$$hashKey": "object:303"
     },
     {
       "text": "%md\n#### Person CDC",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1320,16 +1320,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_221511726",
+      "jobName": "paragraph_1691416401205_1892294970",
       "id": "paragraph_1687518236886_2038015641",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26599"
+      "$$hashKey": "object:304"
     },
     {
       "text": "%md\n\nLets create a new Source configuration for the Person Table, in which we only consume from the bin logs.\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1362,16 +1362,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_1877549020",
+      "jobName": "paragraph_1691416401205_419297748",
       "id": "paragraph_1687514879588_1986288009",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26600"
+      "$$hashKey": "object:305"
     },
     {
       "text": "%flink.ssql\n\nDROP TABLE IF exists person_cdc;\n\nCREATE TABLE person_cdc (\n  id double,\n  full_name STRING,\n  last_name STRING,\n  first_name STRING\n) WITH (\n  'connector' = 'postgres-cdc',\n  'hostname' = '<RDSInstanceEndpoint>',\n  'port' = '5432',\n  'username' = 'adminuser',\n  'password' = 'admin123',\n  'database-name' = 'sportstickets',\n  'schema-name' = 'dms_sample',\n  'table-name' = 'person', -- Table from which we will be consuming the data. \n  'decoding.plugin.name' = 'pgoutput',\n  'slot.name' = 'stream2', -- Replication slot to be used for consuming the data\n  'debezium.snapshot.mode' = 'never' -- Configuration that specifies to only consume from bin logs\n);\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1402,16 +1402,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_108520883",
+      "jobName": "paragraph_1691416401205_1816628045",
       "id": "paragraph_1687514955359_1505292358",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26601"
+      "$$hashKey": "object:306"
     },
     {
       "text": "%md\nIn order to consume message from the bin logs we need to alter the Postgres Table with its Replica Identity configuration to Full. Lets perform the change",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1443,16 +1443,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_1244711914",
+      "jobName": "paragraph_1691416401205_1386738756",
       "id": "paragraph_1687516118826_1754477285",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26602"
+      "$$hashKey": "object:307"
     },
     {
-      "text": "%flink.ipyflink\n\ncur = conn.cursor()\n\ncur.execute(\"ALTER TABLE dms_sample.person REPLICA IDENTITY FULL\")\n# commit changes\nconn.commit()\ncur.close()",
+      "text": "%flink.ipyflink\n\nconn = psycopg2.connect(\n    host=\"<RDSInstanceEndpoint>\",\n    database=\"sportstickets\",\n    user=\"adminuser\",\n    password=\"admin123\")\ncur = conn.cursor()\n\ncur.execute(\"ALTER TABLE dms_sample.person REPLICA IDENTITY FULL\")\n# commit changes\nconn.commit()\ncur.close()",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:54:00+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1475,16 +1475,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_786867823",
+      "jobName": "paragraph_1691416401206_206950101",
       "id": "paragraph_1687516174709_1798154047",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26603"
+      "$$hashKey": "object:308"
     },
     {
       "text": "%md\nLet's query the Person table using a CDC only source",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1517,16 +1517,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_826754777",
+      "jobName": "paragraph_1691416401206_1945878350",
       "id": "paragraph_1687515100464_1420272476",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26604"
+      "$$hashKey": "object:309"
     },
     {
       "text": "%flink.ssql(type=update)\nselect * from person_cdc;",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1587,16 +1587,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677259_1604270310",
+      "jobName": "paragraph_1691416401206_688541373",
       "id": "paragraph_1687515069868_180341277",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26605"
+      "$$hashKey": "object:310"
     },
     {
       "text": "%md\n\nAs we can see, we are not getting any results, because there are no transactions happening to the Person Table. Lets create some!.\n\nIn order to avoid trying to insert duplicates in the table we will get the latest id in the table first",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1629,16 +1629,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1855279353",
+      "jobName": "paragraph_1691416401206_713500983",
       "id": "paragraph_1687515095045_178784393",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26606"
+      "$$hashKey": "object:311"
     },
     {
       "text": "%flink.ipyflink\n\ncur = conn.cursor()\ncur.execute(\"select id from dms_sample.person order by id desc limit 1\")\nlast_id=cur.fetchone()[0]\nnew_id = last_id +1\ncur.close()",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1664,16 +1664,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1861601450",
+      "jobName": "paragraph_1691416401207_1303673100",
       "id": "paragraph_1687517028957_2100535566",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26607"
+      "$$hashKey": "object:312"
     },
     {
       "text": "%flink.ipyflink\n\ncur = conn.cursor()\ncur.execute(\"INSERT INTO dms_sample.person (id,full_name,last_name,first_name) values ({},'Francisco Morillo', 'Morillo', 'Francisco')\".format(new_id))\n# commit changes\nconn.commit()\ncur.close()",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1699,16 +1699,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_458005567",
+      "jobName": "paragraph_1691416401207_958337121",
       "id": "paragraph_1687515171773_136655267",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26608"
+      "$$hashKey": "object:313"
     },
     {
       "text": "%md\n\nSee how the row shows in the Flink Query",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1741,16 +1741,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1854596275",
+      "jobName": "paragraph_1691416401207_287875273",
       "id": "paragraph_1687518664896_473505809",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26609"
+      "$$hashKey": "object:314"
     },
     {
       "text": "%md\n\nLets do an update to that ID",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1783,16 +1783,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_713271915",
+      "jobName": "paragraph_1691416401208_1722233729",
       "id": "paragraph_1687515688819_1732241887",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26610"
+      "$$hashKey": "object:315"
     },
     {
-      "text": "%flink.ipyflink\n\ncur = conn.cursor()\n\ncur.execute(\"update dms_sample.person set full_name = 'Valentina Sanabria',last_name ='Sanabria', first_name='Valentina' where id = {}\".format(new_id))\n# commit changes\nconn.commit()\ncur.close()",
+      "text": "%flink.ipyflink\n\ncur = conn.cursor()\n\ncur.execute(\"update dms_sample.person set full_name = 'Valentina Sanabria',last_name ='Sanabria', first_name='Valentina' where id = {}\".format(new_id))\n# commit changes\nconn.commit()\ncur.close()\nconn.close()",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1818,16 +1818,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_989681311",
+      "jobName": "paragraph_1691416401212_1086725081",
       "id": "paragraph_1687515203841_805014237",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26611"
+      "$$hashKey": "object:316"
     },
     {
       "text": "%md\n\nGo back to the query!!\n\nYou can stop the application now",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1860,16 +1860,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1701470578",
+      "jobName": "paragraph_1691416401212_1591489588",
       "id": "paragraph_1687518314819_354828056",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26612"
+      "$$hashKey": "object:317"
     },
     {
       "text": "%md\n\nSee how the results in the query are being modified on the fly. This is because with Flink CDC when changes happen to the database, Flink will retract the first message and replace it with the newer one.\n\nHowever because of this functionality, we need to use Sinks that are capable of performing the same action. The Zepellin notebook can, but unfortunately, Amazon S3 cant do it by itself. \n\nHere is where Apache Hudi comes in!\n\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1901,16 +1901,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1192525034",
+      "jobName": "paragraph_1691416401212_666711907",
       "id": "paragraph_1687517393382_1471416933",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26613"
+      "$$hashKey": "object:318"
     },
     {
       "text": "%md\n## Flink Change Data Capture (CDC) + Apache Hudi\nIn this last stage, we'll create a Flink Job that consumes only the changes in two tables in our Database, does a join and writes in S3 using Apache Hudi. \n\nThe Cloudformation templates, deploys a Lambda function which generates every minute CDC data in our Database. It transfers tickets from one person to another, and it appends the transaction in the history table.\n\nWe will now create the remaining two table source connectors from our database.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1943,16 +1943,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1224517257",
+      "jobName": "paragraph_1691416401213_456578363",
       "id": "paragraph_1685960207359_1862269025",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26614"
+      "$$hashKey": "object:319"
     },
     {
       "text": "%md\n### Sporting Event Ticket Table\nThis table reflects each sporting ticket that has been sold or transferred. In our database, a lambda function is transferring tickets to different owners, for which we will have updates in this table. \n- Please update the hostname with the RDS Endpoint found in the Outputs of the CloudFormation Template",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -1985,16 +1985,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_45441517",
+      "jobName": "paragraph_1691416401213_601054485",
       "id": "paragraph_1685960410193_1826131626",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26615"
+      "$$hashKey": "object:320"
     },
     {
       "text": "%flink.ssql\n-- register a PostgreSQL table 'sporting_event_ticket' in Flink SQL\n\nDROP TABLE IF exists sporting_event_ticket;\n\nCREATE TABLE sporting_event_ticket (\n  id double,\n  sporting_event_id double,\n  sport_location_id double,\n  seat_level int,\n  seat_section STRING,\n  seat_row STRING,\n  seat STRING,\n  ticketholder_id double,\n  ticket_price float\n) WITH (\n  'connector' = 'postgres-cdc',\n  'hostname' = '<RDSInstanceEndpoint>',\n  'port' = '5432',\n  'username' = 'adminuser',\n  'password' = 'admin123',\n  'database-name' = 'sportstickets',\n  'schema-name' = 'dms_sample',\n  'table-name' = 'sporting_event_ticket',\n  'decoding.plugin.name' = 'pgoutput',\n  'slot.name' = 'stream3',\n  'debezium.snapshot.mode' = 'never' -- This configurations, makes the CDC connector skip reading the snapshot data and just consume the new data that has been upserted in the table.\n);\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": true,
@@ -2026,16 +2026,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1904858290",
+      "jobName": "paragraph_1691416401213_967694977",
       "id": "paragraph_1685960325560_1038356888",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26616"
+      "$$hashKey": "object:321"
     },
     {
       "text": "%md\n### Ticket Purchase History table\nThis table reflects with an insert every transaction or modification that has happened to a ticket. \n- Please update the hostname with the RDS Endpoint found in the Outputs of the CloudFormation Template",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2068,16 +2068,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677260_1077578047",
+      "jobName": "paragraph_1691416401213_557592083",
       "id": "paragraph_1685960499134_330576416",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26617"
+      "$$hashKey": "object:322"
     },
     {
       "text": "%flink.ssql()\n-- register a PostgreSQL table 'ticket_purchase_hist' in Flink SQL\n\nDROP TABLE IF exists ticket_purchase_hist;\n\nCREATE TABLE ticket_purchase_hist (\n  sporting_event_ticket_id double,\n  purchase_by_id double,\n  transaction_date_time timestamp(0),\n  transferred_from_id double,\n  purchase_price float\n  ) WITH (\n  'connector' = 'postgres-cdc',\n  'hostname' = '<RDSInstanceEndpoint>',\n  'port' = '5432',\n  'username' = 'adminuser',\n  'password' = 'admin123',\n  'database-name' = 'sportstickets',\n  'schema-name' = 'dms_sample',\n  'table-name' = 'ticket_purchase_hist',\n  'decoding.plugin.name' = 'pgoutput',\n  'slot.name' = 'stream4',\n  'debezium.snapshot.mode' = 'never' -- This configurations, makes the CDC connector skip reading the snapshot data and just consume the new data that has been upserted in the table.\n);",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2109,16 +2109,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_569363363",
+      "jobName": "paragraph_1691416401213_1707237074",
       "id": "paragraph_1685960479633_743515528",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26618"
+      "$$hashKey": "object:323"
     },
     {
       "text": "%md\n### Ticket View\nLets create a view in which we are able to identify the last transaction that each person has done. It may take around 6 minutes to see data. As soon as you see it, you can stop the application and continue.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:48:44+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2151,18 +2151,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_380661095",
+      "jobName": "paragraph_1691416401213_1247816517",
       "id": "paragraph_1686780315596_1263833460",
-      "dateCreated": "2023-08-01T08:47:57+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:26619",
-      "dateFinished": "2023-08-01T08:48:44+0000",
-      "dateStarted": "2023-08-01T08:48:44+0000"
+      "dateCreated": "2023-08-07T13:53:21+0000",
+      "status": "READY",
+      "$$hashKey": "object:324"
     },
     {
       "text": "%flink.ssql(type=update)\n\nselect full_name, cast(sporting_event_ticket.id as string), ticket_price, cast(transaction_date_time as string) as transaction_date_time\nfrom person\njoin\nsporting_event_ticket\non person.id=ticketholder_id\njoin ticket_purchase_hist\non sporting_event_ticket_id=sporting_event_ticket.id;",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -2184,16 +2182,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_2144148537",
+      "jobName": "paragraph_1691416401213_465550884",
       "id": "paragraph_1686780369821_1648487274",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26620"
+      "$$hashKey": "object:325"
     },
     {
       "text": "%md \n### Ticket View in Apache Hudi\nSimilarly as we did before, we'll define our Hudi Table, which our Flink application will use as a Sink. Our Flink application, will join the person table, in order to identify the customers name, last ticket id he owns, the ticket price and the timestamp of that transactions. In order to capture this information we will need to do a triple join from all 3 tables that we defined earlier in the notebook.  \n\nAs we defined in the configuration for sporting_event_ticket and ticket_purchase_hist 'snapshot.mode' to *never*, we will only be capturing the data that has been generated since we start the application. For the person table, as it is static, we will need to process all the records.\n\n> Remember that if we start consuming data from a table's snapshot, it wont finish the checkpoint until all rows have been processed for that given table. For which, you can expect a 5 minute latency before actually seeing the Flink Application write to S3 using Hudi, as each write will happen with each checkpoint.\n\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2226,16 +2224,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_1192469938",
+      "jobName": "paragraph_1691416401213_1936135640",
       "id": "paragraph_1685960560294_913311435",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26621"
+      "$$hashKey": "object:326"
     },
     {
       "text": "%flink.ssql\n\nDROP TABLE IF EXISTS ticket_view;\n\nCREATE TABLE ticket_view (\n  full_name string PRIMARY KEY NOT ENFORCED,\n  id string,\n  ticket_price float,\n  transaction_date_time string\n    ) \n    WITH (\n    'connector' = 'hudi',\n    'compaction.delta_seconds'='120',\n    'compaction.delta_commits'='5',\n    'compaction.trigger.strategy'='num_or_time',\n    'hoodie.embed.timeline.server' = 'false', -- Hudi v.0.11.0 and above try to run a runtime server on Flink Task managers. This does not  work with Kinesis Analytics and must be turned off.\n    'path' = 's3a://<S3DataLakeBucketName>/hudi/ticketview/', -- Path to your S3 bucket\n    'table.type' = 'MERGE_ON_READ', --  MERGE_ON_READ table or, by default is COPY_ON_WRITE\n    'read.tasks' = '1',\n    'write.tasks' = '3',\n    'compaction.tasks' = '3'\n    );\n    ",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": true,
@@ -2267,16 +2265,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_2118482752",
+      "jobName": "paragraph_1691416401213_1627415256",
       "id": "paragraph_1685521314866_228575859",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26622"
+      "$$hashKey": "object:327"
     },
     {
       "text": "%md\n### Write CDC into Apache Hudi\nSame as earlier, we'll use the insert into command to write the results of a query into the Apache Hudi table. Bear in mind that the schema of the query has to match the Hudi Table Definition from before",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2309,16 +2307,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_705766475",
+      "jobName": "paragraph_1691416401213_1489529876",
       "id": "paragraph_1685960879538_688247457",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26623"
+      "$$hashKey": "object:328"
     },
     {
       "text": "%flink.ssql(type=update)\ninsert into ticket_view\nselect full_name, cast(sporting_event_ticket.id as string), ticket_price, cast(transaction_date_time as string) as transaction_date_time\nfrom person\njoin\nsporting_event_ticket\non person.id=ticketholder_id\njoin ticket_purchase_hist\non sporting_event_ticket_id=sporting_event_ticket.id;",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -2340,16 +2338,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_477879448",
+      "jobName": "paragraph_1691416401213_1149060478",
       "id": "paragraph_1685960943300_861496299",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26624"
+      "$$hashKey": "object:329"
     },
     {
       "text": "%md\nOpen the Flink Job UI, and see how we are consuming data from the 3 tables in our Flink Job.\n\nNotice that the job hasnt finished it's first checkpoint, because it still consuming from the Person's table snapshot. \n\nIn order to continue to the next cell and query our Hudi table, please wait until at least one checkpoint has finished succesfully. This should take around 6 minutes",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2382,16 +2380,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_1088775573",
+      "jobName": "paragraph_1691416401214_1569071527",
       "id": "paragraph_1686066776020_81601433",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26625"
+      "$$hashKey": "object:330"
     },
     {
       "text": "%md\n> Wait until you can see in the Flink UI that the job has finished 1 checkpoint",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2424,16 +2422,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677261_1359180436",
+      "jobName": "paragraph_1691416401215_1215974687",
       "id": "paragraph_1686066992069_1169427623",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26626"
+      "$$hashKey": "object:331"
     },
     {
       "text": "%md\n### Query the Ticket View Hudi Table\nLets query our Ticket View Table.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2466,16 +2464,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677265_1555924631",
+      "jobName": "paragraph_1691416401216_114632213",
       "id": "paragraph_1685961132602_1151392327",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26627"
+      "$$hashKey": "object:332"
     },
     {
       "text": "%flink.ssql(type=update)\nselect * from ticket_view;",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -2623,16 +2621,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677265_506113304",
+      "jobName": "paragraph_1691416401216_560246726",
       "id": "paragraph_1685961168639_1960465967",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26628"
+      "$$hashKey": "object:333"
     },
     {
       "text": "%md\n> If you dont see any data, it might be that the Flink job hasnt yet finished to perform its first checkpoint. Please run again the query",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2665,16 +2663,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677265_881197640",
+      "jobName": "paragraph_1691416401216_1044735938",
       "id": "paragraph_1686067192624_1095733846",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26629"
+      "$$hashKey": "object:334"
     },
     {
       "text": "%md\n### Check for duplicate data\nAs we defined the full name to be the primary key, when querying the table we should only have one row per each unique ticket holder.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2707,16 +2705,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677265_1108330345",
+      "jobName": "paragraph_1691416401216_1666611212",
       "id": "paragraph_1686067306844_263427065",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26630"
+      "$$hashKey": "object:335"
     },
     {
       "text": "%md\nLets run the following query to showcase that we do not have any duplicate people in our Hudi Table",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2749,16 +2747,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677265_347549926",
+      "jobName": "paragraph_1691416401216_292630897",
       "id": "paragraph_1685962079135_824475914",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26631"
+      "$$hashKey": "object:336"
     },
     {
       "text": "%flink.ssql(type=update)\nselect full_name, cnt from \n(select full_name, count(*) as cnt from ticket_view group by full_name)\nwhere cnt >1;",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -2818,16 +2816,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677266_572062775",
+      "jobName": "paragraph_1691416401216_1900868005",
       "id": "paragraph_1685962131527_1841238742",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26632"
+      "$$hashKey": "object:337"
     },
     {
       "text": "%md\nAs we can see our Query Job has finished and we dont have any results, meaning that there are no duplicates for each person in our ticket view table.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2860,16 +2858,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677266_685901031",
+      "jobName": "paragraph_1691416401216_1159852695",
       "id": "paragraph_1685962670129_408370887",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26633"
+      "$$hashKey": "object:338"
     },
     {
       "text": "%md\n### Amazon Athena\nYou continue querying the data as well using Amazon Athena. Please head back to the instructions in the ReadMe.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2902,16 +2900,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677266_1669042830",
+      "jobName": "paragraph_1691416401217_1370691268",
       "id": "paragraph_1686067385970_160810932",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26634"
+      "$$hashKey": "object:339"
     },
     {
       "text": "%md \n## Clean up\nStop the Flink Job from inserting the Ticket View into Apache Hudi and execute the following cell to drop all created tables. You will need to empty the S3 Buckets, and lastly delete the CloudFormation Template that was deployed in the account using CDK.",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -2944,16 +2942,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677266_346828331",
+      "jobName": "paragraph_1691416401217_971105300",
       "id": "paragraph_1685961797638_640342098",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26635"
+      "$$hashKey": "object:340"
     },
     {
       "text": "%flink.ssql\n\nDROP TABLE IF exists t1;\n\nDROP TABLE IF exists person;\n\nDROP TABLE if exists person_cdc\n\nDROP TABLE IF exists sporting_event_ticket;\n\nDROP TABLE IF exists ticket_purchase_hist;\n\nDROP TABLE IF exists ticket_view;\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -2984,16 +2982,16 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677266_1087241722",
+      "jobName": "paragraph_1691416401217_1014592272",
       "id": "paragraph_1685961901366_2086680383",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26636"
+      "$$hashKey": "object:341"
     },
     {
       "text": "%flink.ssql\n",
       "user": "anonymous",
-      "dateUpdated": "2023-08-01T08:47:57+0000",
+      "dateUpdated": "2023-08-07T13:53:21+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -3015,15 +3013,15 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1690879677266_615648522",
+      "jobName": "paragraph_1691416401217_917930451",
       "id": "paragraph_1686067651694_124540264",
-      "dateCreated": "2023-08-01T08:47:57+0000",
+      "dateCreated": "2023-08-07T13:53:21+0000",
       "status": "READY",
-      "$$hashKey": "object:26637"
+      "$$hashKey": "object:342"
     }
   ],
-  "name": "CDC-Hudi-Notebook",
-  "id": "2J5VVH4HZ",
+  "name": "CDC-Hudi-Notebook2",
+  "id": "2J92U16EH",
   "defaultInterpreterGroup": "flink",
   "version": "0.10.1",
   "noteParams": {},
@@ -3035,5 +3033,5 @@
     "personalizedMode": "false"
   },
   "info": {},
-  "path": "/CDC-Hudi-Notebook"
+  "path": "/CDC-Hudi-Notebook2"
 }
