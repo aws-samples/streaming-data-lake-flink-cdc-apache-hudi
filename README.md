@@ -52,7 +52,7 @@ If you want to use AWS Lake Formation to manage permissions and access to the Hu
    ```
 5. Navigate into the directory
     ```shell
-    cd flink-cdc-hudi
+    cd streaming-data-lake-flink-cdc-apache-hudi
     ```
 6. Download and install the necessary npm modules
     ```shell
